@@ -33,7 +33,8 @@ class authClientService {
       signature,
       agree_terms,
       agree_update_terms,
-      role
+      role,
+      often
     } = req.body;
     // biome-ignore lint/style/useTemplate: <explanation>
     const full_name = first_name + ' ' + last_name;
@@ -50,37 +51,37 @@ class authClientService {
       full_name,
       business_name,
       email,
-      sex,
-      preferred_correspondence_email,
-      preferred_contact_method,
-      business_address,
-      address_line_1,
-      address_line_2,
-      state_province_region,
-      city,
-      state,
-      company,
-      phone,
+      often,
+      // often,
+      // sex,
+      // preferred_contact_method,
+      // business_address,
+      // address_line_1,
+      // address_line_2,
+      // state_province_region,
+      // city,
+      // state,
+      // company,
+      // phone,
       password,
-      address,
-      country,
-      zip,
-      postal_zip_code,
-      website,
-      prefer_company,
-      dob,
-      doj,
-      signature,
-      agree_terms,
-      agree_update_terms,
-      photo,
+      // address,
+      // country,
+      // zip,
+      // postal_zip_code,
+      // website,
+      // prefer_company,
+      // dob,
+      // doj,
+      // signature,
+      // agree_terms,
+      // agree_update_terms,
+      role,
       status: req.body.status || 0
     });
   }
-
   async confClient(data) {
     const { email } = data;
-    console.log(email);
+    console.log("asdfasdfasdf")
     // Check if email already exists
     const existingClient = await Client.findOne({ where: { email } });
     if (existingClient) {

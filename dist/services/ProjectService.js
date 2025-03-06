@@ -48,12 +48,13 @@ class ProjectService {
       additional_setting,
       portal_access
     });
-    console.log(project);
+    console.log(project, client);
     await client.addRequestedClientProject(project);
     const { users } = req;
     users.map(async user => {
       const projectVA = await User.findByPk(user);
       // biome-ignore lint/style/useTemplate: <explanation>
+      console.log(projectVA);
       if (!projectVA) throw new Error('User' + user + 'not found!');
       await projectVA.addAssignedUserProject(project);
     });
@@ -218,7 +219,6 @@ class ProjectService {
       }
     });
     if (!user) throw new Error('User not found!');
-    console.log(user);
     return user.assignedUserProject;
   }
 
@@ -273,7 +273,6 @@ class ProjectService {
     });
 
     if (!projects || projects.length === 0) throw new Error('No active projects found!');
-
     return projects;
   }
 

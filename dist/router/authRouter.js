@@ -36,7 +36,9 @@ UserController.signup);
 
 // router.post("/register/confclient", UacPermission("edit_tasks"), ClientController.confClient)
 router.post('/register/confclient', ClientController.confClient);
-router.post('/register/client', validateClient, roleVerify('admin'), ClientController.createClient);
+router.post('/register/client', validateClient,
+// roleVerify('admin'),
+ClientController.createClient);
 
 router.post('/login', LoginController.login);
 router.post('/logout', handleSignout);

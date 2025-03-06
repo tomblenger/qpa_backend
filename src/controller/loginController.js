@@ -9,6 +9,7 @@ const Roles = require("../../models/Roles");
 class LoginController {
   async login(req, res) {
     const { email, password } = req.body;
+
     if (!email || !password) {
       return res
         .status(400)
@@ -18,13 +19,11 @@ class LoginController {
       //Search user in both user model and client model.
       let model_type;
       let user = await authUserService.findUserByEmail(req.body);
-
       model_type = "user";
       if (!user) {
         user = await authClientService.findClientByEmail(req.body);
         model_type = "client";
       }
-
       // If neither User nor Client exists, return error
       if (!user) {
         return res
@@ -37,19 +36,18 @@ class LoginController {
         return res.status(401).json({ message: "Invalid email or password!" });
       }
 
-      const role = user.role;
-
       //get role id and name from the modeltype and modelid.
       const modelRole = await Roles.findOne({
         where: {
-          name: role,
+          name: user.role,
         },
       });
 
+      console.log(user, req.body)
+
       const role_id = modelRole.id;
-
+      const role = modelRole.name;
       // const roleen = await Roles.findByPk(role_id);
-
       const username = user.full_name;
       const userId = user.id;
       const access_token = jwt.sign(
@@ -65,8 +63,8 @@ class LoginController {
       );
       res.cookie("auth_token", refresh_token, {
         httpOnly: true,
-        secure: false,
         maxAge: 48 * 60 * 60 * 1000,
+        secure: false,
         sameSite: "Strict",
       });
 
@@ -77,7 +75,7 @@ class LoginController {
           ref_token: refresh_token,
         });
       }
-      console.log("$$$$$$$$$$$$$$$$$$$$$$$");
+
       return res.status(200).json({
         error: false,
         message: "Logged in successfully.",

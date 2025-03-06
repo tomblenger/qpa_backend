@@ -42,7 +42,7 @@ router.post('/register/confclient', ClientController.confClient);
 router.post(
   '/register/client',
   validateClient,
-  roleVerify('admin'),
+  // roleVerify('admin'),
   ClientController.createClient
 );
 

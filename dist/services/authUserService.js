@@ -1,6 +1,7 @@
 const User = require('../../models/User');
 const Project = require('../../models/Project');
 const Task = require('../../models/Task');
+const bcrypt = require("bcryptjs");
 
 class AuthUserService {
   async createUser(req) {
@@ -20,6 +21,7 @@ class AuthUserService {
       dob,
       role
     } = req.body;
+    console.log(req.body);
     // biome-ignore lint/style/useTemplate: <explanation>
     const full_name = first_name + ' ' + last_name;
     // Check if email is already in use
@@ -98,6 +100,9 @@ class AuthUserService {
 
   async updateUser(id, updates) {
     const user = await this.getUserById(id);
+    if (user.password) {
+      user.password = await bcrypt.hash("1111", 10);
+    }
     return await user.update(updates);
   }
 
@@ -111,6 +116,13 @@ class AuthUserService {
       }
     }
     return await user.destroy();
+  }
+
+  async resetPassword(id) {
+    const user = await this.getUserById(id);
+    user.password = "1111";
+
+    return await this.updateUser(id, user);
   }
 }
 

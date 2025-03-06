@@ -13,9 +13,11 @@ const TimeTrackController = require('../controller/TimeTrackController');
 //Router for project CRUD action.
 router.post('/', async (req, res) => {
   res.status(200).json('Admin OK');
-});
+})
 
 router.get('/team', UserController.getAllUsers);
+router.get('/team/:id', UserController.getUserById);
+router.post('/team/resetpassword', UserController.resetPassword)
 router.get('/clients', ClientController.getAllClients);
 router.get('/activeProjects', ProjectController.getActiveProjects);
 router.get('/tasksInProgress', TaskController.getTasksInProgress);

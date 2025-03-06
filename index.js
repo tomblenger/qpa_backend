@@ -4,6 +4,9 @@ const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
 const swaggerDocument = require("./swagger-output.json");
+const emailRouter = require("./src/router/emailRouter");
+const otpRouter = require("./src/router/otpRouter");
+
 
 require("./models");
 
@@ -13,6 +16,7 @@ const vaRouter = require("./src/router/vaRouter");
 const clientRouter = require("./src/router/clientRouter");
 const adminRouter = require("./src/router/adminRouter");
 const managerRouter = require("./src/router/managerRouter");
+const settingRouter = require("./src/router/settingRouter");
 
 const { handleVerify } = require("./src/middleware/verifyToken");
 const roleVerify = require("./src/middleware/roleVerify");
@@ -46,6 +50,13 @@ app.use(
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use("/email", emailRouter);
+
+app.use("/otp", otpRouter);
+
+app.use('/settings', settingRouter)
+
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

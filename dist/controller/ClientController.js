@@ -6,8 +6,9 @@ class ClientController {
   //Create Client.
   async createClient(req, res) {
     try {
+      console.log("before create", req.body);
       const client = await clientService.createClient(req);
-
+      console.log("after create", client);
       // Example: Add client-role association if needed
       const role = 'client';
       const role_id = await roleService.getRoleIdByName(role); // Assuming this is implemented
@@ -15,7 +16,7 @@ class ClientController {
       const model_type = role;
       await ModelRole.create({ model_id, model_type, role_id });
 
-      res.status(201).json({ message: 'Client created successfully', client });
+      res.status(200).json({ message: 'Client created successfully', client });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

@@ -23,6 +23,7 @@ function getAuthenticatedUser(req) {
       role_id: decoded.role_id,
       role: decoded.role
     };
+    console.log("user", user);
     return user; // Assuming the JWT contains user data
   } catch (err) {
     return null;

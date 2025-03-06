@@ -10,6 +10,7 @@ const handleVerify = async (req, res, next) => {
     }
     req.isAuth = { decoded };
     req.role = decoded.role;
+    console.log("verify token verification is successfully!");
     next();
   });
 };

@@ -16,6 +16,8 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/team', UserController.getAllUsers);
+router.get('/team/:id', UserController.getUserById);
+router.post('/team/resetpassword', UserController.resetPassword);
 router.get('/clients', ClientController.getAllClients);
 router.get('/activeProjects', ProjectController.getActiveProjects);
 router.get('/tasksInProgress', TaskController.getTasksInProgress);

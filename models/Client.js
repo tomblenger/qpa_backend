@@ -36,6 +36,10 @@ const Client = sequelize.define(
     email: {
       type: DataTypes.STRING
     },
+      password: {
+          type: DataTypes.STRING,
+          allowNull: false
+      },
     phone: {
       type: DataTypes.STRING
     },

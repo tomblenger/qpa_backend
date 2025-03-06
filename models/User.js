@@ -67,6 +67,10 @@ const User = sequelize.define(
     ref_token: {
       type: DataTypes.TEXT,
       allowNull: true
+    },
+    verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   },
   {
@@ -96,9 +100,15 @@ User.prototype.getResult = function () {
 
 // Hooks for password hashing
 User.beforeCreate(async (user) => {
-  if (user.password) {
-    user.password = await bcrypt.hash(user.password, 10);
-  }
+    if (user.password) {
+        user.password = await bcrypt.hash(user.password, 10);
+    }
+});
+
+User.beforeUpdate(async (user) => {
+    if (user.password) {
+        user.password = await bcrypt.hash(user.password, 10);
+    }
 });
 
 // Static method for password comparison

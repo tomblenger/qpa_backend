@@ -19,21 +19,21 @@ for (const file of files) {
 }
 // Sync models with the database
 sequelize
-  .sync({ force: false, alter: true }) // Use `force: true` only in development for testing
+  .sync({ force: true, alter: true }) // Use `force: true` only in development for testing
   .then(() => console.log('Database synced'))
   .catch((error) => console.error('Error syncing database:', error));
 
-// Object.keys(db).forEach(modelName => {
-//   if (db[modelName].associate) {
-//     db[modelName].associate(db);
-//   }
-// });
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 
-// module.exports = db;
+module.exports = db;
 // const sequelize = require('../config/database');
 // const User = require('./User');
 // const Client=require('./Client');
-
+//
 // Sync models with the database
 // sequelize.sync({ force: true }) // Use `force: true` only in development for testing
 //   .then(() => console.log('Database synced'))
